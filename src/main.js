@@ -41,7 +41,9 @@ import {
     Dialog,
     Pagination,
     MessageBox,
-    Message
+    Message,
+    Autocomplete,
+    ButtonGroup
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
@@ -49,7 +51,8 @@ Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
     .use(DropdownMenu).use(DropdownItem).use(Row).use(Col).use(Card)
     .use(Table).use(TableColumn).use(Breadcrumb).use(BreadcrumbItem)
     .use(Tag).use(Form).use(FormItem).use(Input).use(Select).use(Option)
-    .use(Switch).use(DatePicker).use(Dialog).use(Pagination);
+    .use(Switch).use(DatePicker).use(Dialog).use(Pagination).use(Autocomplete)
+    .use(ButtonGroup);
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 

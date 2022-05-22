@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {getHomeData} from 'network/home';
+import { getHomeData } from "network/home";
 import UserCard from "./homeComps/UserCard.vue";
 import DataCard from "./homeComps/DataCard.vue";
 import CountCard from "./homeComps/CountCard.vue";
@@ -34,8 +34,8 @@ export default {
     CountCard,
     LineChart,
     UserChart,
-    VideoData
-},
+    VideoData,
+  },
   data() {
     return {
       tableData: [],
@@ -52,14 +52,14 @@ export default {
     // 此处用created相当于对前端页面数据进行初始化
     // axios.get("http://localhost/park-manage/src/php/home.php").then((res) => {
     //   console.log(res);
-      //  this.tableData = res.data.data.tabledata;//获取数据
-      //  this.countData = res.data.data.countdata;
+    //  this.tableData = res.data.data.tabledata;//获取数据
+    //  this.countData = res.data.data.countdata;
     // });
-    getHomeData().then(res => {
+    getHomeData().then((res) => {
+      this.tableData = res.data.tabledata; //获取数据
+      this.countData = res.data.countdata;
       console.log(res);
-      this.tableData = res.data.tabledata;//获取数据
-       this.countData = res.data.countdata;
-    })
+    });
   },
 };
 </script>

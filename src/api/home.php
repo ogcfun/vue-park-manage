@@ -1,5 +1,5 @@
 <?php 
-  include_once('../php/db_park.php');
+  include_once('../api/db_park.php');
 
   $sql="select * from tabledata";
 	$query = mysqli_query($link,$sql);
