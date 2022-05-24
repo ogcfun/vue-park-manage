@@ -1,22 +1,23 @@
-<template>
+<template slot-scope="scope">
   <div>
-    <el-table :data="userData" border style="width: 100%">
+    <el-table :data="userData" border style="width: auto;">
+    <el-table-column fixed="left" prop="id" label="ID" width="180"></el-table-column>
       <el-table-column
         v-for="(item, index) in tableLabel"
         :key="item.prop"
         :prop="item.prop"
         :label="item.label"
-        :width="item.width ? item.width : 125" 
+        :width="item.width ? item.width : 180"
       >
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="180">
-        <el-row>
-          <el-button-group>
+      <el-table-column  label="操作" fixed="right" width="180">
+         <template slot-scope="scope">
             <el-button
               size="mini"
               type="primary"
               icon="el-icon-edit"
+              @click="handleEdit(scope.$index, scope.row)"
             ></el-button>
             <el-button
               size="mini"
@@ -28,9 +29,9 @@
               type="danger"
               icon="el-icon-delete"
             ></el-button>
-          </el-button-group>
-        </el-row>
+            </template>
       </el-table-column>
+     
     </el-table>
     <el-pagination
       class="pagination"
@@ -43,61 +44,35 @@
 </template>
 
 <script>
-import { getUserData } from "network/user";
-
 export default {
   name: "ContentForm",
-  data() {
+  props: {
+    userData: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    tableLabel: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+   data () {
     return {
-      userData: [],
-      tableLabel: [
-        {
-          prop: "id",
-          label: "ID",
-          width: 100,
-        },
-        {
-          prop: "user_name",
-          label: "用户名称",
-        },
-        {
-          prop: "user_password",
-          label: "用户密码",
-        },
-        {
-          prop: "user_time",
-          label: "注册时间",
-          width: 200,
-        },
-        {
-          prop: "user_permissions",
-          label: "用户权限",
-          width: 125,
-        },
-        {
-          prop: "memo",
-          label: "备注",
-          width: 125,
-        },
-        {
-          prop: "state",
-          label: "账号状态",
-          width: 125,
-        },
-      ],
-    };
+     
+    }
   },
   methods: {
     handleClick(row) {
-      console.log(row);
+      // console.log(row);
     },
-  },
-  mounted() {
-    getUserData().then((res) => {
-      this.userData = res.data.tb_userlist;
-      console.log(res);
-    });
-  },
+     handleEdit(index,row) {
+            this.$emit('edit',index,row)
+        },
+  }
 };
 </script>
 
