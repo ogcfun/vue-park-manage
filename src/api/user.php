@@ -16,4 +16,6 @@
     'msg' => 'user',
     ];
 
+
     echo(json_encode($user));
+

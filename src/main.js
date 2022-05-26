@@ -7,6 +7,8 @@ import './assets/less/index.less'
 
 // import axios from 'axios';
 // Vue.prototype.$axios = axios
+import qs from 'qs';
+Vue.prototype.$qs = qs;
 
 
 import {
