@@ -22,15 +22,18 @@
           icon="el-icon-refresh-right"
           >刷新列表</el-button
         >
+        <el-button type="primary" @click="sortUser" icon="el-icon-sort"
+          >正序/倒序</el-button
+        >
       </div>
       <div>
-        <el-autocomplete
+        <el-input
           class="inline-input"
-          v-model="disease"
+          v-model="parameter"
           placeholder="请输入用户id/名称"
           :trigger-on-focus="false"
-        ></el-autocomplete>
-        <el-button type="primary">搜索</el-button>
+        ></el-input>
+        <el-button type="primary" @click="searchUser">搜索</el-button>
       </div>
     </div>
 
@@ -40,6 +43,7 @@
         :tableLabel="tableLabel"
         @edit="editUser"
         @del="delUser"
+        @page="pageUser"
       ></common-table>
     </el-card>
   </div>
@@ -62,7 +66,6 @@ export default {
   data() {
     return {
       operateType: "add",
-      disease: "",
       isShow: false,
       userData: [],
       tableLabel: [
@@ -100,6 +103,11 @@ export default {
           label: "用户权限",
           width: 200,
         },
+        {
+          prop: "state",
+          label: "账号状态",
+          width: 180,
+        },
       ],
       form: {
         id: "", //用户id
@@ -111,6 +119,11 @@ export default {
         email: "", //邮箱
         addr: "", //地址
       },
+      parameter: "",
+      sortTp: 2,
+      sortType: null,
+      page: 1,
+      flag: true,
     };
   },
   methods: {
@@ -152,10 +165,7 @@ export default {
 
         let adduserparams = this.$qs.stringify({ addparams });
         axios
-          .post(
-            "http://localhost/park-manage/src/api/add_user.php",
-            adduserparams
-          )
+          .post("http://110.42.247.232:199/api/add_user.php", adduserparams)
           .then((res) => {
             if (this.operateType == "add" && res.data.code === 200) {
               this.isShow = false;
@@ -184,10 +194,7 @@ export default {
 
         let updataparams = this.$qs.stringify({ upparams });
         axios
-          .post(
-            "http://localhost/park-manage/src/api/use_user.php",
-            updataparams
-          )
+          .post("http://110.42.247.232:199/api/use_user.php", updataparams)
           .then((res) => {
             if (this.operateType == "edit" && res.data.code === 100) {
               this.isShow = false;
@@ -217,10 +224,10 @@ export default {
         // let del = this.$qs.stringify({ id });
         // console.log(del);
         axios
-          .get("http://localhost/park-manage/src/api/del_user.php", {
+          .get("http://110.42.247.232:199/api/del_user.php", {
             params: {
-              id: row.id
-            }
+              id: row.id,
+            },
           })
           .then((res) => {
             if (res.data.code === 300) {
@@ -237,11 +244,59 @@ export default {
           });
       });
     },
+
+    // 分页
+    pageUser(page) {
+      this.page = page;
+      axios
+        .get("http://110.42.247.232:199/api/user.php", {
+          params: {
+            sortType: this.sortType,
+            page: this.page,
+          },
+        })
+        .then((res) => {
+          this.userData = res.data.data.tb_userlist;
+        });
+    },
+
+    sortUser() {
+      if (this.flag) {
+        this.sortTp = 2;
+        this.flag = false;
+      } else {
+        this.sortTp = 1;
+        this.flag = true;
+      }
+      this.sortType = this.sortTp;
+      axios
+        .get("http://110.42.247.232:199/api/user.php", {
+          params: {
+            sortType: this.sortType,
+            page: this.page,
+          },
+        })
+        .then((res) => {
+          this.userData = res.data.data.tb_userlist;
+        });
+    },
+    searchUser() {
+      axios
+        .get("http://110.42.247.232:199/api/user.php", {
+          params: {
+            parameter: this.parameter
+          },
+        })
+        .then((res) => {
+          // console.log(res);
+          this.userData = res.data.data.tb_userlist;
+        });
+    },
   },
   mounted() {
     getUserData().then((res) => {
       this.userData = res.data.tb_userlist;
-      console.log(res);
+      // console.log(res);
     });
   },
 };
@@ -253,6 +308,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   .inline-input {
+    width: 250px;
     margin-right: 5px;
     margin-top: 2px;
   }

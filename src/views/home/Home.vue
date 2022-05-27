@@ -58,7 +58,7 @@ export default {
     getHomeData().then((res) => {
       this.tableData = res.data.tabledata; //获取数据
       this.countData = res.data.countdata;
-      console.log(res);
+      // console.log(res);
     });
   },
 };

@@ -16,9 +16,6 @@
       >
       </el-table-column>
 
-      <el-table-column prop="state" label="账号状态" width="180">
-      </el-table-column>
-
       <el-table-column label="操作" fixed="right" width="180">
         <template slot-scope="scope">
           <el-button
@@ -41,17 +38,22 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+    <el-tag type="success" class="tag">共有 {{pageNum}} 条数据</el-tag>
     <el-pagination
-      class="pagination"
       background
       layout="prev, pager, next"
-      :total="100"
+      :total="total"
+      :page-size="8"
+      @current-change="handleCurrentChange"
     >
     </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
+import { getUserData } from "network/user";
 export default {
   name: "ContentForm",
   props: {
@@ -69,7 +71,10 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      total: 0,
+      pageNum: 1,
+    };
   },
   methods: {
     handleClick(row) {
@@ -78,16 +83,26 @@ export default {
     handleEdit(index, row) {
       this.$emit("edit", index, row);
     },
-    handleDelete(index,row) {
-            this.$emit('del',index,row);
-        },
+    handleDelete(index, row) {
+      this.$emit("del", index, row);
+    },
+    handleCurrentChange(page) {
+      this.$emit('page',page);
+    },
+  },
+  mounted() {
+    getUserData().then(res => {
+      this.total = res.totalCount
+      this.pageNum = res.totalCount
+    })
   },
 };
 </script>
 
 <style lang="less" scoped>
 .pagination {
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
-  text-align: right;
 }
 </style>
