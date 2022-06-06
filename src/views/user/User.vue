@@ -54,7 +54,7 @@ import axios from "axios";
 import CommonTable from "components/common/commonTable/CommonTable.vue";
 import CommonForm from "components/common/commonTable/CommomForm.vue";
 
-import { getUserData } from "network/user";
+import { getAddUser, getUseUser, getDelUser, getPageUser, getSortUser,getSearchUser, getUserData } from "network/user";
 
 export default {
   inject: ["reload"],
@@ -99,11 +99,6 @@ export default {
           width: 280,
         },
         {
-          prop: "user_permissions",
-          label: "用户权限",
-          width: 200,
-        },
-        {
           prop: "state",
           label: "账号状态",
           width: 180,
@@ -114,7 +109,6 @@ export default {
         user_name: "", //用户名称
         user_account: "", //用户账号
         user_password: "", //账号密码
-        user_permissions: "", //用户权限
         state: "", //账号状态
         email: "", //邮箱
         addr: "", //地址
@@ -133,7 +127,6 @@ export default {
       this.form.user_name = "";
       this.form.user_account = "";
       this.form.user_password = "";
-      this.form.user_permissions = "管理员";
       this.form.state = "正常";
       this.form.email = "";
       this.form.addr = "";
@@ -146,7 +139,6 @@ export default {
       this.form.user_name = row.user_name;
       this.form.user_account = row.user_account;
       this.form.user_password = row.user_password;
-      this.form.user_permissions = row.user_permissions;
       this.form.state = row.state;
       this.form.email = row.email;
       this.form.addr = row.addr;
@@ -157,109 +149,162 @@ export default {
           user_name: this.form.user_name,
           user_account: this.form.user_account,
           user_password: this.form.user_password,
-          user_permissions: this.form.user_permissions,
           state: this.form.state,
           email: this.form.email,
           addr: this.form.addr,
         };
 
+        // 新增
         let adduserparams = this.$qs.stringify({ addparams });
-        axios
-          .post("http://110.42.247.232:199/api/add_user.php", adduserparams)
-          .then((res) => {
-            if (this.operateType == "add" && res.data.code === 200) {
-              this.isShow = false;
-              this.$message({
-                message: res.data.msg,
-                type: "success",
-              });
-            } else if (this.operateType == "add" && res.data.code === -2) {
-              this.$message({
-                message: res.data.msg,
-                type: "danger",
-              });
-            }
-          });
+        // axios
+        //   .post("http://localhost/park-manage/src/api/add_user.php", adduserparams)
+        //   .then((res) => {
+        //     if (this.operateType == "add" && res.data.code === 200) {
+        //       this.isShow = false;
+        //       this.$message({
+        //         message: res.data.msg,
+        //         type: "success",
+        //       });
+        //     } else if (this.operateType == "add" && res.data.code === -2) {
+        //       this.$message({
+        //         message: res.data.msg,
+        //         type: "danger",
+        //       });
+        //     }
+        //   });
+        getAddUser(adduserparams).then((res) => {
+          console.log(res);
+          if (this.operateType == "add" && res.code === 200) {
+            this.isShow = false;
+            this.$message({
+              message: res.msg,
+              type: "success",
+            });
+          } else if (this.operateType == "add" && res.code === -2) {
+            this.$message({
+              message: res.msg,
+              type: "danger",
+            });
+          }
+        });
       } else if (this.operateType == "edit") {
         var upparams = {
           id: this.form.id,
           user_name: this.form.user_name,
           user_account: this.form.user_account,
           user_password: this.form.user_password,
-          user_permissions: this.form.user_permissions,
           state: this.form.state,
           email: this.form.email,
           addr: this.form.addr,
         };
 
+        // 更改
         let updataparams = this.$qs.stringify({ upparams });
-        axios
-          .post("http://110.42.247.232:199/api/use_user.php", updataparams)
-          .then((res) => {
-            if (this.operateType == "edit" && res.data.code === 100) {
+        // axios
+        //   .post(
+        //     "http://localhost/park-manage/src/api/use_user.php",
+        //     updataparams
+        //   )
+        //   .then((res) => {
+        //     if (this.operateType == "edit" && res.data.code === 100) {
+        //       this.isShow = false;
+        //       this.$message({
+        //         message: res.data.msg,
+        //         type: "success",
+        //       });
+        //     } else if (this.operateType == "edit" && res.data.code === -1) {
+        //       this.$message({
+        //         message: res.data.msg,
+        //         type: "danger",
+        //       });
+        //     }
+        //   });
+        getUseUser(updataparams).then(res => {
+          if (this.operateType == "edit" && res.code === 100) {
               this.isShow = false;
               this.$message({
-                message: res.data.msg,
+                message: res.msg,
                 type: "success",
               });
-            } else if (this.operateType == "edit" && res.data.code === -1) {
+            } else if (this.operateType == "edit" && res.code === -1) {
               this.$message({
-                message: res.data.msg,
+                message: res.msg,
                 type: "danger",
               });
             }
-          });
+        })
       }
     },
+
+    // 刷新
     getUserList() {
       this.reload();
     },
+
+    // 删除
     delUser(index, row) {
       this.$confirm("此操作将永久删除该用户，是否继续?", "提示", {
         confirmButtonText: "确认",
         cancelButtonText: "取消",
         type: "warning",
       }).then((res) => {
-        // const id = row.id;
+        const id = row.id;
         // let del = this.$qs.stringify({ id });
         // console.log(del);
-        axios
-          .get("http://110.42.247.232:199/api/del_user.php", {
-            params: {
-              id: row.id,
-            },
-          })
-          .then((res) => {
-            if (res.data.code === 300) {
+        // axios
+        //   .get("http://localhost/park-manage/src/api/del_user.php", {
+        //     params: {
+        //       id: row.id,
+        //     },
+        //   })
+        //   .then((res) => {
+        //     if (res.data.code === 300) {
+        //       this.$message({
+        //         message: res.data.msg,
+        //         type: "success",
+        //       });
+        //     } else if (res.data.code === -3) {
+        //       this.$message({
+        //         message: res.data.msg,
+        //         type: "danger",
+        //       });
+        //     }
+        //   });
+        getDelUser(id).then(res => {
+          if (res.code === 300) {
               this.$message({
-                message: res.data.msg,
+                message: res.msg,
                 type: "success",
               });
-            } else if (res.data.code === -3) {
+            } else if (res.code === -3) {
               this.$message({
-                message: res.data.msg,
+                message: res.msg,
                 type: "danger",
               });
             }
-          });
+        })
       });
     },
 
     // 分页
     pageUser(page) {
       this.page = page;
-      axios
-        .get("http://110.42.247.232:199/api/user.php", {
-          params: {
-            sortType: this.sortType,
-            page: this.page,
-          },
-        })
-        .then((res) => {
-          this.userData = res.data.data.tb_userlist;
-        });
+      // axios
+      //   .get("http://localhost/park-manage/src/api/user.php", {
+      //     params: {
+      //       sortType: this.sortType,
+      //       page: this.page,
+      //     },
+      //   })
+      //   .then((res) => {
+      //     this.userData = res.data.data.tb_userlist;
+      //   });
+      getPageUser(this.sortType,this.page).then(res => {
+         this.userData = res.data.tb_userlist;
+      })
     },
 
+    // 排序
     sortUser() {
       if (this.flag) {
         this.sortTp = 2;
@@ -269,28 +314,36 @@ export default {
         this.flag = true;
       }
       this.sortType = this.sortTp;
-      axios
-        .get("http://110.42.247.232:199/api/user.php", {
-          params: {
-            sortType: this.sortType,
-            page: this.page,
-          },
-        })
-        .then((res) => {
-          this.userData = res.data.data.tb_userlist;
-        });
+      // axios
+      //   .get("http://localhost/park-manage/src/api/user.php", {
+      //     params: {
+      //       sortType: this.sortType,
+      //       page: this.page,
+      //     },
+      //   })
+      //   .then((res) => {
+      //     this.userData = res.data.data.tb_userlist;
+      //   });
+      getSortUser(this.sortType,this.page).then(res => {
+        this.userData = res.data.tb_userlist;
+      })
     },
+
+    // 搜索
     searchUser() {
-      axios
-        .get("http://110.42.247.232:199/api/user.php", {
-          params: {
-            parameter: this.parameter
-          },
-        })
-        .then((res) => {
-          // console.log(res);
-          this.userData = res.data.data.tb_userlist;
-        });
+      // axios
+      //   .get("http://localhost/park-manage/src/api/user.php", {
+      //     params: {
+      //       parameter: this.parameter,
+      //     },
+      //   })
+      //   .then((res) => {
+      //     // console.log(res);
+      //     this.userData = res.data.data.tb_userlist;
+      //   });
+      getSearchUser(this.parameter).then(res => {
+        this.userData = res.data.tb_userlist;
+      })
     },
   },
   mounted() {

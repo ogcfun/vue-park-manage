@@ -68,10 +68,15 @@ export default {
         }
     }
     .r-content {
+        .iconfont {
+            margin-right: 14px;
+            cursor: pointer;
+        }
         .user {
             width: 40px;
             height: 40px;
             border-radius: 50%;
+            cursor: pointer;
         }
     }
 </style>

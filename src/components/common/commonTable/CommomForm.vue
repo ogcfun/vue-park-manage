@@ -15,12 +15,6 @@
     <el-form-item label="地址" prop="addr">
       <el-input v-model="form.addr" auto-complete="off"></el-input>
     </el-form-item>
-    <el-form-item label="用户权限">
-      <el-input disabled v-model="form.user_permissions" auto-complete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="账号状态">
-      <el-input disabled v-model="form.state" auto-complete="off"></el-input>
-    </el-form-item>
   </el-form>
 </template>
 

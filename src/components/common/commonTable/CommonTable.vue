@@ -2,7 +2,7 @@
   <div>
     <el-table :data="userData" border style="width: auto">
       <el-table-column
-        fixed="left"
+        fixed="left" 
         prop="id"
         label="ID"
         width="180"
