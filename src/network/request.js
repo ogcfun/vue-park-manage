@@ -5,6 +5,7 @@ export function request(config) {
     // 1.创建axios的实例
     const instance = axios.create({
         baseURL: 'http://localhost/park-manage/src/api',
+        // baseURL: 'http://110.42.247.232:199/api',
         timeout: 5000
     })
 

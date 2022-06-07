@@ -15,6 +15,9 @@
     <el-form-item label="地址" prop="addr">
       <el-input v-model="form.addr" auto-complete="off"></el-input>
     </el-form-item>
+    <el-form-item label="账户权限">
+      <el-input v-model="form.permissions" auto-complete="off"></el-input>
+    </el-form-item>
   </el-form>
 </template>
 

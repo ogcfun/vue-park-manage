@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import CommonTable from "components/common/commonTable/CommonTable.vue";
 import CommonForm from "components/common/commonTable/CommomForm.vue";
 
@@ -99,6 +99,11 @@ export default {
           width: 280,
         },
         {
+          prop: "permissions",
+          label: "账号权限",
+          width: 200,
+        },
+        {
           prop: "state",
           label: "账号状态",
           width: 180,
@@ -110,6 +115,7 @@ export default {
         user_account: "", //用户账号
         user_password: "", //账号密码
         state: "", //账号状态
+        permissions: "", //账号权限
         email: "", //邮箱
         addr: "", //地址
       },
@@ -128,6 +134,7 @@ export default {
       this.form.user_account = "";
       this.form.user_password = "";
       this.form.state = "正常";
+      this.form.permissions = "管理员"
       this.form.email = "";
       this.form.addr = "";
     },
@@ -140,6 +147,7 @@ export default {
       this.form.user_account = row.user_account;
       this.form.user_password = row.user_password;
       this.form.state = row.state;
+      this.form.permissions = row.permissions;
       this.form.email = row.email;
       this.form.addr = row.addr;
     },
@@ -150,6 +158,7 @@ export default {
           user_account: this.form.user_account,
           user_password: this.form.user_password,
           state: this.form.state,
+          permissions: this.form.permissions,
           email: this.form.email,
           addr: this.form.addr,
         };
@@ -194,6 +203,7 @@ export default {
           user_account: this.form.user_account,
           user_password: this.form.user_password,
           state: this.form.state,
+          permissions: this.form.permissions,
           email: this.form.email,
           addr: this.form.addr,
         };

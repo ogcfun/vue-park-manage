@@ -11,6 +11,7 @@ $user_name = $upparams['user_name'];
 $user_account = $upparams['user_account'];
 $user_password = $upparams['user_password'];
 $state = $upparams['state'];
+$permissions = $upparams['permissions'];
 $email = $upparams['email'];
 $addr = $upparams['addr'];
 
@@ -60,7 +61,7 @@ if(!preg_match("/^[\x{4e00}-\x{9fa5}]+$/u",$addr)) {
     echo(json_encode($arr));
     die();
 }
-$sql = "update tb_userlist set user_name='$user_name',user_account='$user_account',user_password='$user_password',state='$state',email='$email',addr='$addr' where id='$id'";
+$sql = "update tb_userlist set user_name='$user_name',user_account='$user_account',user_password='$user_password',permissions='$permissions',state='$state',email='$email',addr='$addr' where id='$id'";
 
 $result = mysqli_query($link,$sql);
 $nums = mysqli_affected_rows($link);

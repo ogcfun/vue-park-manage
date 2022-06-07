@@ -19,11 +19,11 @@ if (!isset($_GET['page'])) {
     $pageu = ($page - 1) * $pageSize;
 }
 
-$sort = "order by id desc";
+$sort = "order by id ASC";
 if(isset($_GET['sortType'])){
     $sortType = $_GET['sortType'];
     if($sortType == 2){
-        $sort = "order by id ASC";
+        $sort = "order by id desc";
     }
 }
 

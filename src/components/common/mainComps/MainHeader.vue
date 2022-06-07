@@ -44,6 +44,11 @@ export default {
         handleMenu() {
             this.$store.commit('collapseMenu')
         },
+        logOut() {
+            this.$store.commit('clearToken')
+            this.$store.commit('clearMenu')
+            this.$router.push("/login")
+        }
     },
     computed: {
         ...mapState({

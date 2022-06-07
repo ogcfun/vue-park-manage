@@ -38,13 +38,14 @@
 </template>
 
 <script>
+import { getUserForm } from "network/login";
 export default {
   name: "Login",
   data() {
     return {
       form: {
-        username: '',
-        password: ''
+        username: "",
+        password: "",
       },
       rules: {
         username: [
@@ -61,21 +62,45 @@ export default {
   },
   methods: {
     login() {
-            // getMenu(this.form).then(res => {
-                // console.log(res);
-                // if(res.code === 20000) {
-                    // this.$store.commit('clearMenu')
-                    // this.$store.commit('setMenu',res.data.menu)
-                    // this.$store.commit('setToken',res.data.token)
-                    // this.$store.commit('addMenu',this.$router)
-                    // this.$router.push({name: 'home'})
-                    this.$router.push('/home')
-                // }else {
-                    // this.$message.warning(res.data.message)
-                // }
-            // })
-        }
+      this.$refs.form.validate(async (valid) => {
+        if (!valid) return;
+        const userform = this.form;
+        let tokenuserform = this.$qs.stringify({ userform });
+        getUserForm(tokenuserform).then((res) => {
+          // console.log(res);
+          if (res.code == 666) {
+            this.$message({
+              message: res.msg,
+              type: "success",
+            });
+            this.$store.commit("clearMenu");
+            this.$store.commit("setMenu", res.menu);
+            this.$store.commit("setToken", res.token);
+            this.$store.commit("addMenu", this.$router);
+            this.$router.push({ name: "home" });
+          } else if (res.code == -6) {
+            this.$message({
+              message: res.msg,
+              type: "danger",
+            });
+          }
+        });
+      });
+      // getUserForm(this.form).then(res => {
+      //     console.log(res);
+      //     if(res.code === 20000) {
+      //         this.$store.commit('clearMenu')
+      //         this.$store.commit('setMenu',res.data.menu)
+      //         this.$store.commit('setToken',res.data.token)
+      //         this.$store.commit('addMenu',this.$router)
+      //         this.$router.push({name: 'home'})
+      // this.$router.push('/home')
+      //     }else {
+      //         this.$message.warning(res.data.message)
+      //     }
+      // })
     },
+  },
 };
 </script>
 

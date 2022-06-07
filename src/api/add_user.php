@@ -9,6 +9,7 @@ $user_name = $addparams['user_name'];
 $user_account = $addparams['user_account'];
 $user_password = $addparams['user_password'];
 $state = $addparams['state'];
+$permissions =$addparams['permissions'];
 $email = $addparams['email'];
 $addr = $addparams['addr'];
 $add_time = date('Y-m-d H:i:s',time());
@@ -60,8 +61,8 @@ if(!preg_match("/^[\x{4e00}-\x{9fa5}]+$/u",$addr)) {
 }
 
 $sql = "insert into 
-	`tb_userlist`(`user_name`,`user_account`,`user_password`,`email`,`addr`,`user_time`,`state`) 
-	values('$user_name','$user_account','$user_password','$email','$addr','$add_time','$state')";
+	`tb_userlist`(`user_name`,`user_account`,`user_password`,`email`,`addr`,`user_time`,`permissions`,`state`) 
+	values('$user_name','$user_account','$user_password','$email','$addr','$add_time','$permissions','$state')";
 
 $result = mysqli_query($link,$sql);
 $nums = mysqli_affected_rows($link);
