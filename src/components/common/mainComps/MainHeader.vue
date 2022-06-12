@@ -17,7 +17,7 @@
         <div class="r-content">
             <el-dropdown trigger="click" size="mini">
                 <span>
-                    <img class="user" :src="userImg" alt="">
+                    <img class="user" v-if="this.$store.state.user.userimage ||userimage" :src="require(`@/api/${this.$store.state.user.userimage ||userimage}`)" alt="">
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <router-link to="/setting">
@@ -32,12 +32,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import Cookie from 'js-cookie';
 
 export default {
     name: 'CommonHeader',
     data() {
         return {
-            userImg: require('../../../assets/image/user.jpg')
+            userimage:  Cookie.get('userimage'),
         }
     },
     methods: {

@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 .el-header {
-    background-color:  rgb(84, 220, 238);
+    background-color:  rgb(35, 201, 223);
   }
 
   .el-main {

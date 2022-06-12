@@ -4,6 +4,7 @@
       v-for="item in countData"
       :key="item.name"
       :body-style="{ display: 'flex', padding: 0 }"
+      :style="{background:item.backgroundColor}"
     >
       <i
         class="icon"

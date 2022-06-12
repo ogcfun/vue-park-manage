@@ -1,10 +1,23 @@
 <template>
   <el-form :model="form" :rules="rules" ref="form">
-    <el-form-item label="用户名称" prop="user_name">
-      <el-input v-model="form.user_name" auto-complete="off"></el-input>
-    </el-form-item>
     <el-form-item label="用户账号" prop="user_account">
       <el-input v-model="form.user_account" auto-complete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="用户头像">
+      <br>
+     <el-upload
+    class="avatar-uploader"
+    :action="getAddImage"
+    :show-file-list="false"
+    :on-success="handleAvatarSuccess"
+    :before-upload="beforeAvatarUpload"
+  >
+    <img v-if="form.image" :src="require(`@/api/${form.image}`)" class="avatar" />
+    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+  </el-upload>
+    </el-form-item>
+    <el-form-item label="用户名称" prop="user_name">
+      <el-input v-model="form.user_name" auto-complete="off"></el-input>
     </el-form-item>
     <el-form-item label="用户密码" prop="user_password">
       <el-input v-model="form.user_password" auto-complete="off"></el-input>
@@ -14,9 +27,6 @@
     </el-form-item>
     <el-form-item label="地址" prop="addr">
       <el-input v-model="form.addr" auto-complete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="账户权限">
-      <el-input v-model="form.permissions" auto-complete="off"></el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -51,8 +61,59 @@ export default {
       }
     };
   },
+  methods: {
+      handleAvatarSuccess(res, file) {
+        console.log(res);
+        this.form.image = res.imageurl;
+        console.log(this.form.image);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = 
+        file.type === 'image/jpeg' || 
+        file.type === 'image/jpg' || 
+        file.type === 'image/png' || 
+        file.type === 'image/svg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片格式错误');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
+    },
+    computed:{
+      getAddImage(){
+          return "http://localhost/park-manage/src/api/file.php"
+      },
+    }
 };
 </script>
 
 <style lang="less">
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>

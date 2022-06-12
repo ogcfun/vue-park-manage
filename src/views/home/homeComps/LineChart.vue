@@ -42,6 +42,8 @@ export default {
           name: linechartName[i],
           data: data[i],
           type: "line",
+          stack: 'x',
+          areaStyle: {}
         });
       }
 

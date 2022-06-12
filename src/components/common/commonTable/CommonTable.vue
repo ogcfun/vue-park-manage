@@ -2,11 +2,16 @@
   <div>
     <el-table :data="userData" border style="width: auto">
       <el-table-column
-        fixed="left" 
+        fixed="left"
         prop="id"
         label="ID"
         width="180"
       ></el-table-column>
+      <el-table-column prop="image" label="用户头像" width="150">
+        <template slot-scope="scope">
+          <img v-if="scope.row.image" :src="require(`@/api/${scope.row.image}`)" min-width="70" height="70" >
+        </template>
+      </el-table-column>
       <el-table-column
         v-for="(item, index) in tableLabel"
         :key="item.prop"
@@ -39,15 +44,15 @@
       </el-table-column>
     </el-table>
     <div class="pagination">
-    <el-tag type="success" class="tag">共有 {{pageNum}} 条数据</el-tag>
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="total"
-      :page-size="8"
-      @current-change="handleCurrentChange"
-    >
-    </el-pagination>
+      <el-tag type="success" class="tag">共有 {{ pageNum }} 条数据</el-tag>
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="total"
+        :page-size="8"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -87,14 +92,14 @@ export default {
       this.$emit("del", index, row);
     },
     handleCurrentChange(page) {
-      this.$emit('page',page);
+      this.$emit("page", page);
     },
   },
   mounted() {
-    getUserData().then(res => {
-      this.total = res.totalCount
-      this.pageNum = res.totalCount
-    })
+    getUserData().then((res) => {
+      this.total = res.totalCount;
+      this.pageNum = res.totalCount;
+    });
   },
 };
 </script>

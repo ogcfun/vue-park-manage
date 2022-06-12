@@ -46,6 +46,8 @@ import {
     Message,
     Autocomplete,
     ButtonGroup,
+    Upload,
+    Image
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
@@ -54,7 +56,7 @@ Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
     .use(Table).use(TableColumn).use(Breadcrumb).use(BreadcrumbItem)
     .use(Tag).use(Form).use(FormItem).use(Input).use(Select).use(Option)
     .use(Switch).use(DatePicker).use(Dialog).use(Pagination).use(Autocomplete)
-    .use(ButtonGroup);
+    .use(ButtonGroup).use(Upload).use(Image);
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 

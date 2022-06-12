@@ -7,7 +7,7 @@
     label-width="100px"
     class="login-container"
   >
-    <h3 class="login_title">公园售票系统登录</h3>
+    <h3 class="login_title">某公园售票系统登录</h3>
     <el-form-item
       label="用户名"
       label-width="80px"
@@ -67,12 +67,14 @@ export default {
         const userform = this.form;
         let tokenuserform = this.$qs.stringify({ userform });
         getUserForm(tokenuserform).then((res) => {
-          // console.log(res);
           if (res.code == 666) {
             this.$message({
               message: res.msg,
               type: "success",
             });
+            this.$store.commit("setPermissions",res.permissions);
+            this.$store.commit("setUserimage",res.userimage);
+            this.$store.commit("setUsernamed",res.usernamed);
             this.$store.commit("clearMenu");
             this.$store.commit("setMenu", res.menu);
             this.$store.commit("setToken", res.token);
@@ -86,19 +88,6 @@ export default {
           }
         });
       });
-      // getUserForm(this.form).then(res => {
-      //     console.log(res);
-      //     if(res.code === 20000) {
-      //         this.$store.commit('clearMenu')
-      //         this.$store.commit('setMenu',res.data.menu)
-      //         this.$store.commit('setToken',res.data.token)
-      //         this.$store.commit('addMenu',this.$router)
-      //         this.$router.push({name: 'home'})
-      // this.$router.push('/home')
-      //     }else {
-      //         this.$message.warning(res.data.message)
-      //     }
-      // })
     },
   },
 };

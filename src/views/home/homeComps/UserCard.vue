@@ -1,10 +1,10 @@
 <template>
     <el-card shadow="hover">
         <div class="user">
-          <img :src="userImg" alt="" />
+          <img v-if="this.$store.state.user.userimage ||userimage" :src="require(`@/api/${this.$store.state.user.userimage ||userimage}`)" alt="" />
           <div class="userinfo">
-            <p class="name">YLN-D</p>
-            <p class="access">超级管理员</p>
+            <p class="name">{{userName}}</p>
+            <p class="access"><el-tag>{{permissions}}</el-tag></p>
           </div>
         </div>
         <div class="login-info">
@@ -17,11 +17,14 @@
 </template>
 
 <script>
+import Cookie from 'js-cookie';
 export default {
     name: 'UserCard',
     data() {
         return {
-            userImg: require("assets/image/user.jpg"),
+            userimage:  Cookie.get('userimage'),
+            userName: this.$store.state.user.userName || Cookie.get('usernamed'),
+            permissions: this.$store.state.user.permissions || Cookie.get('permissions'),
         }
     },
     methods: {

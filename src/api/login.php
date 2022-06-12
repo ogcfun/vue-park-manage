@@ -41,137 +41,51 @@ if(isset($_POST['userform'])){
         $user_permissions = $permissions['permissions'];
     }
 
+    // 查询用户头像
+    $sql = "select image from tb_userlist WHERE user_account = '$username' ";
+    $query = mysqli_query($link,$sql);
+    $image = mysqli_fetch_assoc($query);
+    if(!empty($image)){
+        $user_image = $image['image'];
+    }
+
+    // 查询用户名称
+    $sql = "select user_name from tb_userlist WHERE user_account = '$username' ";
+    $query = mysqli_query($link,$sql);
+    $usernamed = mysqli_fetch_assoc($query);
+    if(!empty($usernamed)){
+        $usernamed = $usernamed['user_name'];
+    }
+
     // token
     $v = 1;
     $key = mt_rand();
     $hash = hash_hmac("sha1", $v . mt_rand() . time(), $key, true);
     $token = str_replace('=', '', strtr(base64_encode($hash), '+/', '-_'));
 
-
-    // 前端传入路由
-    $menu = [
-            [
-            'path' => '/home',
-            'name'  => 'home',
-            'label' => '首页',
-            'icon' => 's-home',
-            'url' => 'home/index'
-            ],
-            [
-            'path'=> '/user',
-            'name'=> 'user',
-            'label'=> '用户管理',
-            'icon'=> 'user-solid',
-            'url'=> 'user/User' 
-            ],
-            [
-            'path'=> '/sellTickets',
-            'name'=> 'sellTickets',
-            'label'=> '售票管理',
-            'icon'=> 's-order',
-            'url'=> 'tickets/SellTickets'
-            ],
-            [
-            'path'=> '/ticketClass',
-            'name'=> 'ticketClass',
-            'label'=> '票务管理',
-            'icon'=> 's-ticket',
-            'url'=> 'ticketClass/TicketClass'   
-            ],
-            [
-            'path'=> '/search',
-            'name'=> 'search',
-            'label'=> '查询',
-            'icon'=> 's-promotion',
-            'url'=> 'search/Search'
-            ],
-            [
-            'path'=> '/stats',
-            'name'=> 'stats',
-            'label'=> '统计',
-            'icon'=> 's-data',
-            'url'=> 'stats/Stats'
-            ],
-            [
-            'label'=> '设置',
-            'icon'=> 's-operation',
-            'children' => [
-                [
-                    'path'=> '/setting',
-                    'name'=> 'setting',
-                    'label'=> '个人设置',
-                    'icon'=> 'setting',
-                    'url'=> 'set/Setting'
-                ],
-                [
-                    'path'=> '/userSet',
-                    'name'=> 'userSet',
-                    'label'=> '用户设置',
-                    'icon'=> 'setting',
-                    'url'=> 'set/UserSet'
-                ],
-            ]
-            ],
-    ];
-
-    $menuX = [
-        [
-        'path' => '/home',
-        'name'  => 'home',
-        'label' => '首页',
-        'icon' => 's-home',
-        'url' => 'home/index'
-        ],
-        [
-        'path'=> '/user',
-        'name'=> 'user',
-        'label'=> '用户管理',
-        'icon'=> 'user-solid',
-        'url'=> 'user/User' 
-        ],
-        [
-        'path'=> '/sellTickets',
-        'name'=> 'sellTickets',
-        'label'=> '售票管理',
-        'icon'=> 's-order',
-        'url'=> 'tickets/SellTickets'
-        ],
-        [
-        'path'=> '/search',
-        'name'=> 'search',
-        'label'=> '查询',
-        'icon'=> 's-promotion',
-        'url'=> 'search/Search'
-        ],
-        [
-        'path'=> '/stats',
-        'name'=> 'stats',
-        'label'=> '统计',
-        'icon'=> 's-data',
-        'url'=> 'stats/Stats'
-        ],
-        [
-        'label'=> '设置',
-        'icon'=> 's-operation',
-        'children' => [
-            [
-                'path'=> '/setting',
-                'name'=> 'setting',
-                'label'=> '个人设置',
-                'icon'=> 'setting',
-                'url'=> 'set/Setting'
-            ],
-        ]
-        ],
-];
-
-
+    include_once('./menu.php');
 
 	if(!empty($res)) {
-        if($user_permissions == "超级管理员"){
-            $arr = [ "token" => $token,"code" => 666,"msg" => "登录成功",'menu'=>$menu,];  
+        if($user_permissions == "超级管理员" || "站长"){
+            $arr = [ 
+            "token" => $token,
+            "code" => 666,
+            "msg" => "登录成功",
+            'menu'=>$menu,
+            'userimage'=> $user_image,
+            'permissions'=>$user_permissions,
+            'usernamed'=>$usernamed
+        ];  
         }else if($user_permissions == "管理员"){
-            $arr = [ "token" => $token,"code" => 666,"msg" => "登录成功",'menu'=>$menuX,]; 
+            $arr = [ 
+            "token" => $token,
+            "code" => 666,
+            "msg" => "登录成功",
+            'menu'=>$menuX,
+            'userimage'=> $user_image,
+            'permissions'=>$user_permissions,
+            'usernamed'=>$usernamed
+        ]; 
         }
         echo(json_encode($arr));
 		die();

@@ -2,7 +2,10 @@ import Cookie from 'js-cookie';
 
 export default {
     state: {
-        token: ''
+        token: '',
+        userimage: '',
+        permissions: '',
+        userName: ''
     },
     mutations: {
         setToken(state, val) {
@@ -15,6 +18,18 @@ export default {
         },
         getToken(state) {
             state.token = state.token || Cookie.get('token')
-        }
+        },
+        setPermissions(state, permissions) {
+            state.permissions = permissions
+            Cookie.set('permissions', permissions)
+        },
+        setUserimage(state, userimage) {
+            state.userimage = userimage
+            Cookie.set('userimage', userimage)
+        },
+        setUsernamed(state, usernamed) {
+            state.userName = usernamed
+            Cookie.set('usernamed', usernamed)
+        },
     }
 }

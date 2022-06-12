@@ -1,5 +1,5 @@
 <template>
-    <el-card style="margin-top: 20px; height: 460px">
+    <el-card style="margin-top: 20px; height: 460px;">
         <el-table :data="tableData">
           <el-table-column
             v-for="(val, key) in tableLabel"

@@ -42,8 +42,8 @@ export default {
       countData: [],
       tableLabel: {
         name: "门票类型",
-        todayBuy: "今日购买",
-        monthBuy: "本月购买",
+        todayBuy: "昨日购买",
+        monthBuy: "本日购买",
         totalBuy: "总购买",
       },
     };
@@ -58,7 +58,7 @@ export default {
     getHomeData().then((res) => {
       this.tableData = res.data.tabledata; //获取数据
       this.countData = res.data.countdata;
-      // console.log(res);
+      // console.log(this.countData);
     });
   },
 };
