@@ -15,6 +15,11 @@ $email = $addparams['email'];
 $addr = $addparams['addr'];
 $add_time = date('Y-m-d H:i:s',time());
 
+if(empty($user_password)){
+    $user_password = 123456;
+}
+
+
 if(empty($user_name) || strlen($user_name) < 2 || strlen($user_name) > 18) {
     $arr = ["code" => -2,"msg" => "用户名称输入有误"];
     echo(json_encode($arr));

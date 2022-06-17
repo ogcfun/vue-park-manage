@@ -21,7 +21,7 @@ $sql = "delete from tb_userlist where id='$id'";
 
 $result = mysqli_query($link,$sql);
 $nums = mysqli_affected_rows($link);
-if($nums) {
+if($nums > 0) {
     $arr = ["code" => 300,"msg" => "已删除该用户"];
     echo(json_encode($arr));
     die();

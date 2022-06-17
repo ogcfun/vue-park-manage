@@ -1,11 +1,15 @@
 // 网络请求
 import axios from 'axios'
 
+export function baseUrl() {
+    return 'http://110.42.247.232:199/api/'
+}
+
 export function request(config) {
     // 1.创建axios的实例
     const instance = axios.create({
-        baseURL: 'http://localhost/park-manage/src/api',
-        // baseURL: 'http://110.42.247.232:199/api',
+        // baseURL: 'http://localhost/park-manage/src/api',
+        baseURL: 'http://110.42.247.232:199/api',
         timeout: 5000
     })
 

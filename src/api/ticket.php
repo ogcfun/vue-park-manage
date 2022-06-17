@@ -1,16 +1,16 @@
 <?php 
-include_once('../api/db_park.php');
+include_once('./db_park.php');
 
 $queryc = '';
 if(isset($_GET['parameter'])){
     $parameter = $_GET['parameter'];
-    $queryc = "and user_name like '%$parameter%'";
+    $queryc = "and ticket_name like '%$parameter%'";
     if(is_numeric($parameter)){
-        $queryc = "and user_name like '%$parameter%' or id = $parameter";
+        $queryc = "and ticket_name like '%$parameter%' or ticket_id = $parameter";
     }
 }
 
-$pageSize=4; //每页数量
+$pageSize=6; //每页数量
 if (!isset($_GET['page'])) {
     $page = 1; //当前第几页
     $pageu = $page - 1;
@@ -19,15 +19,15 @@ if (!isset($_GET['page'])) {
     $pageu = ($page - 1) * $pageSize;
 }
 
-$sort = "order by id ASC";
+$sort = "order by ticket_id ASC";
 if(isset($_GET['sortType'])){
     $sortType = $_GET['sortType'];
     if($sortType == 2){
-        $sort = "order by id desc";
+        $sort = "order by ticket_id desc";
     }
 }
 
-$totalCount = mysqli_num_rows(mysqli_query($link, "select id from tb_userlist where 1=1 $queryc")); //总数据量
+$totalCount = mysqli_num_rows(mysqli_query($link, "select ticket_id from tb_ticket where 1=1 $queryc")); //总数据量
 
 $totalPageCount = ceil($totalCount / $pageSize); //总页数
 
@@ -36,22 +36,24 @@ if($page > $totalPageCount){
     $pageu = ($page - 1) * $pageSize;
 }
 
-$sql="select * from tb_userlist where 1=1 $queryc $sort limit $pageu,$pageSize";
+$sql="select * from tb_ticket where 1=1 $queryc $sort limit $pageu,$pageSize";
+
+
 $query = mysqli_query($link,$sql);
 
-$tb_userlist = [];
+$tb_ticket = [];
 while($row = mysqli_fetch_assoc($query)){
-    $tb_userlist[] = $row;
+    $tb_ticket[] = $row;
 }
 
-$user = [
+$tb_ticket = [
     'totalCount' => $totalCount,
     'totalPageCount' => $totalPageCount,
     'currentPageNo' => $page,
     'data' => [
-        'tb_userlist' => $tb_userlist
+        'tb_ticket' => $tb_ticket
     ],
     'code' => 200,
     'msg' => 'user',
 ];
-echo(json_encode($user));
+echo(json_encode($tb_ticket));

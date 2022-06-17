@@ -7,9 +7,15 @@
         label="ID"
         width="180"
       ></el-table-column>
-      <el-table-column prop="image" label="用户头像" width="150">
+      <el-table-column prop="image" label="头像(查看大图)" width="150">
         <template slot-scope="scope">
-          <img v-if="scope.row.image" :src="require(`@/api/${scope.row.image}`)" min-width="70" height="70" >
+          <el-image
+            v-if="scope.row.image"
+            :src=" baseUrl() + scope.row.image"
+            :preview-src-list="[baseUrl() + scope.row.image]"
+            style="width: 70px; height: 70px"
+          >
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column
@@ -19,6 +25,14 @@
         :label="item.label"
         :width="item.width ? item.width : 180"
       >
+      </el-table-column>
+      <el-table-column prop="state" label="账号状态" width="140">
+        <template slot-scope="scope">
+           <div slot="reference" class="name-wrapper">
+            <el-tag v-if="scope.row.state == '正常'" type="success" size="medium">{{ scope.row.state }}</el-tag>
+            <el-tag v-else type="danger" size="medium">{{ scope.row.state }}</el-tag>
+          </div>
+        </template>
       </el-table-column>
 
       <el-table-column label="操作" fixed="right" width="180">
@@ -49,7 +63,7 @@
         background
         layout="prev, pager, next"
         :total="total"
-        :page-size="8"
+        :page-size="4"
         @current-change="handleCurrentChange"
       >
       </el-pagination>
@@ -59,6 +73,7 @@
 
 <script>
 import { getUserData } from "network/user";
+import { baseUrl } from 'network/request';
 export default {
   name: "ContentForm",
   props: {
@@ -78,10 +93,13 @@ export default {
   data() {
     return {
       total: 0,
-      pageNum: 1,
+      pageNum: 0,
     };
   },
   methods: {
+     baseUrl() {
+        return baseUrl()
+      },
     handleClick(row) {
       // console.log(row);
     },

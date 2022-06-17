@@ -57,6 +57,13 @@ if(isset($_POST['userform'])){
         $usernamed = $usernamed['user_name'];
     }
 
+    // 查询用户状态
+    $sql = "select state from tb_userlist WHERE user_account = '$username' ";
+    $query = mysqli_query($link,$sql);
+    $state = mysqli_fetch_assoc($query);
+    if(!empty($state)){
+        $state = $state['state'];
+    }
     // token
     $v = 1;
     $key = mt_rand();
@@ -64,6 +71,18 @@ if(isset($_POST['userform'])){
     $token = str_replace('=', '', strtr(base64_encode($hash), '+/', '-_'));
 
     include_once('./menu.php');
+
+    if($state == '禁用'){
+        $arr = ["code" => -6,"msg" => "该账号已被禁用"];
+        echo(json_encode($arr));
+		die();
+    }
+
+    if($user_permissions == "游客"){
+        $arr = ["code" => -6,"msg" => "你还不是管理员"];
+        echo(json_encode($arr));
+		die();
+    }
 
 	if(!empty($res)) {
         if($user_permissions == "超级管理员" || "站长"){

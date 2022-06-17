@@ -102,11 +102,6 @@ export default {
           label: "账号权限",
           width: 160,
         },
-        {
-          prop: "state",
-          label: "账号状态",
-          width: 140,
-        },
       ],
       form: {
         id: "", //用户id
@@ -135,7 +130,7 @@ export default {
       this.form.user_account = "";
       this.form.user_password = "";
       this.form.state = "正常";
-      this.form.permissions = "管理员"
+      this.form.permissions = "游客"
       this.form.email = "";
       this.form.addr = "";
     },
@@ -169,13 +164,14 @@ export default {
         // 新增
         let adduserparams = this.$qs.stringify({ addparams });
         getAddUser(adduserparams).then((res) => {
-          console.log(res);
+          // console.log(res);
           if (this.operateType == "add" && res.code === 200) {
             this.isShow = false;
             this.$message({
               message: res.msg,
               type: "success",
             });
+            this.reload();
           } else if (this.operateType == "add" && res.code === -2) {
             this.$message({
               message: res.msg,
@@ -205,6 +201,7 @@ export default {
                 message: res.msg,
                 type: "success",
               });
+              this.reload();
             } else if (this.operateType == "edit" && res.code === -1) {
               this.$message({
                 message: res.msg,
@@ -234,6 +231,7 @@ export default {
                 message: res.msg,
                 type: "success",
               });
+              this.reload();
             } else if (res.code === -3) {
               this.$message({
                 message: res.msg,

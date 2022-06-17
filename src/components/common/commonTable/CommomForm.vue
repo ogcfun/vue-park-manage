@@ -12,16 +12,16 @@
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
   >
-    <img v-if="form.image" :src="require(`@/api/${form.image}`)" class="avatar" />
+    <img v-if="form.image" :src="baseUrl() + this.form.image" class="avatar" />
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
     </el-form-item>
     <el-form-item label="用户名称" prop="user_name">
       <el-input v-model="form.user_name" auto-complete="off"></el-input>
     </el-form-item>
-    <el-form-item label="用户密码" prop="user_password">
+    <!-- <el-form-item label="用户密码" prop="user_password">
       <el-input v-model="form.user_password" auto-complete="off"></el-input>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="邮箱" prop="email">
       <el-input v-model="form.email" auto-complete="off"></el-input>
     </el-form-item>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { baseUrl } from 'network/request';
 export default {
   name: "CommomForm",
   props: {
@@ -62,10 +63,11 @@ export default {
     };
   },
   methods: {
+      baseUrl() {
+        return baseUrl()
+      },
       handleAvatarSuccess(res, file) {
-        console.log(res);
-        this.form.image = res.imageurl;
-        console.log(this.form.image);
+        this.form.image = file.response.imageurl;
       },
       beforeAvatarUpload(file) {
         const isJPG = 
@@ -82,13 +84,13 @@ export default {
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
-      }
+      },
     },
     computed:{
       getAddImage(){
-          return "http://localhost/park-manage/src/api/file.php"
+          return baseUrl()+"file.php"
       },
-    }
+    },
 };
 </script>
 
