@@ -57,6 +57,10 @@
     <!--原始表格-->
     <el-card>
       <el-table
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
         :data="tableData"
         style="width: 100%"
         @selection-change="handleSelectionChange"
@@ -117,7 +121,7 @@
           background
           layout="prev, pager, next"
           :total="total"
-          :page-size="6"
+          :page-size="9"
           @current-change="handleCurrentChange"
         >
         </el-pagination>
@@ -169,6 +173,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       ticketSrc: "",
       flag: true,
       sortTp: 2,
@@ -212,7 +217,7 @@ export default {
     },
     //选中数据
     handleSelectionChange(val) {
-      this.selectData = val
+      this.selectData = val;
     },
     // 新增
     addTicket(row) {
@@ -247,7 +252,6 @@ export default {
         };
         let addTicket = this.$qs.stringify({ addticket });
         getAddTicket(addTicket).then((res) => {
-          console.log(res);
           if (this.ticketType == "adduser" && res.code === 800) {
             this.ticketShow = false;
             this.$message({
@@ -346,11 +350,14 @@ export default {
     },
   },
   created() {
-    getTicketData().then((res) => {
+    setTimeout(() => {
+      getTicketData().then((res) => {
       this.tableData = res.data.tb_ticket;
       this.total = res.totalCount;
       this.pageNum = res.totalCount;
+      this.loading = false
     });
+    }, 300);
   },
 };
 </script>

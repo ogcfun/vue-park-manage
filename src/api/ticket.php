@@ -10,7 +10,7 @@ if(isset($_GET['parameter'])){
     }
 }
 
-$pageSize=6; //每页数量
+$pageSize=9; //每页数量
 if (!isset($_GET['page'])) {
     $page = 1; //当前第几页
     $pageu = $page - 1;

@@ -48,7 +48,8 @@ export default {
         logOut() {
             this.$store.commit('clearToken')
             this.$store.commit('clearMenu')
-            this.$router.push("/login")
+            // this.$router.push("/login")
+            window.location.href="/login"
         }
     },
     computed: {

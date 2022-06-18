@@ -65,7 +65,7 @@
             ],
     ];
 
-    $menuX = [
+    $menus = [
         [
         'path' => '/home',
         'name'  => 'home',

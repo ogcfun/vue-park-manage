@@ -14,28 +14,21 @@ if(isset($_POST['setticket'])){
     $ticket_price = '';
     $ticket_discount = '';
 
-    if($ticket_type == '儿童票'){
-        $ticket_price = 300;
-        $ticket_discount = 50;
-    }else if($ticket_type == '成人票'){
-        $ticket_price = 480;
-        $ticket_discount = 40;
-    }else if($ticket_type == '老人票'){
-        $ticket_price = 450;
-        $ticket_discount = 60;
-    }else if($ticket_type == '军人票'){
-        $ticket_price = 280;
-        $ticket_discount = 30;
-    }else if($ticket_type == '团票'){
-        $ticket_price = 1200;
-        $ticket_discount = 100;
-    }else if($ticket_type == '年票'){
-        $ticket_price = 2800;
-        $ticket_discount = 200;
-    }else if($ticket_type == '活动票'){
-        $ticket_price = 300;
-        $ticket_discount = 100;
-    }
+   // 查询门票价格
+     $sql = "select price from tb_class_ticket WHERE value = '$ticket_type' ";
+   $query = mysqli_query($link,$sql);
+   $price = mysqli_fetch_assoc($query);
+   if(!empty($price)){
+       $ticket_price = $price['price'];
+   }
+
+   // 查询门票价格
+   $sql = "select h_price from tb_class_ticket WHERE value = '$ticket_type' ";
+   $query = mysqli_query($link,$sql);
+   $discount = mysqli_fetch_assoc($query);
+   if(!empty($discount)){
+       $ticket_discount = $discount['h_price'];
+   }
 
     if(empty($ticket_name) || strlen($ticket_name) < 2 || strlen($ticket_name) > 18) {
         $arr = ["code" => -9,"msg" => "用户名称输入有误"];

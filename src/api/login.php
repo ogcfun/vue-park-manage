@@ -84,28 +84,24 @@ if(isset($_POST['userform'])){
 		die();
     }
 
+    if($user_permissions == "站长"){
+        $nav = $menu;
+    }else if($user_permissions == "超级管理员"){
+        $nav = $menu;
+    }else{
+        $nav = $menus;
+    }
+
 	if(!empty($res)) {
-        if($user_permissions == "超级管理员" || "站长"){
             $arr = [ 
             "token" => $token,
             "code" => 666,
             "msg" => "登录成功",
-            'menu'=>$menu,
+            'menu'=>$nav,
             'userimage'=> $user_image,
             'permissions'=>$user_permissions,
             'usernamed'=>$usernamed
         ];  
-        }else if($user_permissions == "管理员"){
-            $arr = [ 
-            "token" => $token,
-            "code" => 666,
-            "msg" => "登录成功",
-            'menu'=>$menuX,
-            'userimage'=> $user_image,
-            'permissions'=>$user_permissions,
-            'usernamed'=>$usernamed
-        ]; 
-        }
         echo(json_encode($arr));
 		die();
 	}else{

@@ -48,7 +48,10 @@ import {
     ButtonGroup,
     Upload,
     Image,
-    Checkbox
+    Checkbox,
+    Calendar,
+    Loading,
+    Progress,
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
@@ -57,7 +60,8 @@ Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
     .use(Table).use(TableColumn).use(Breadcrumb).use(BreadcrumbItem)
     .use(Tag).use(Form).use(FormItem).use(Input).use(Select).use(Option)
     .use(Switch).use(DatePicker).use(Dialog).use(Pagination).use(Autocomplete)
-    .use(ButtonGroup).use(Upload).use(Image).use(Checkbox);
+    .use(ButtonGroup).use(Upload).use(Image).use(Checkbox).use(Calendar).use(Loading)
+    .use(Progress);
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 

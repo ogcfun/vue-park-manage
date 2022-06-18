@@ -1,6 +1,14 @@
 <template slot-scope="scope">
   <div>
-    <el-table :data="userData" border style="width: auto">
+    <el-table
+      v-loading="loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      :data="userData"
+      border
+      style="width: auto"
+    >
       <el-table-column
         fixed="left"
         prop="id"
@@ -11,7 +19,7 @@
         <template slot-scope="scope">
           <el-image
             v-if="scope.row.image"
-            :src=" baseUrl() + scope.row.image"
+            :src="baseUrl() + scope.row.image"
             :preview-src-list="[baseUrl() + scope.row.image]"
             style="width: 70px; height: 70px"
           >
@@ -28,9 +36,16 @@
       </el-table-column>
       <el-table-column prop="state" label="账号状态" width="140">
         <template slot-scope="scope">
-           <div slot="reference" class="name-wrapper">
-            <el-tag v-if="scope.row.state == '正常'" type="success" size="medium">{{ scope.row.state }}</el-tag>
-            <el-tag v-else type="danger" size="medium">{{ scope.row.state }}</el-tag>
+          <div slot="reference" class="name-wrapper">
+            <el-tag
+              v-if="scope.row.state == '正常'"
+              type="success"
+              size="medium"
+              >{{ scope.row.state }}</el-tag
+            >
+            <el-tag v-else type="danger" size="medium">{{
+              scope.row.state
+            }}</el-tag>
           </div>
         </template>
       </el-table-column>
@@ -63,7 +78,7 @@
         background
         layout="prev, pager, next"
         :total="total"
-        :page-size="4"
+        :page-size="5"
         @current-change="handleCurrentChange"
       >
       </el-pagination>
@@ -73,7 +88,7 @@
 
 <script>
 import { getUserData } from "network/user";
-import { baseUrl } from 'network/request';
+import { baseUrl } from "network/request";
 export default {
   name: "ContentForm",
   props: {
@@ -89,6 +104,9 @@ export default {
         return [];
       },
     },
+    loading:{
+      type:Boolean,
+    }
   },
   data() {
     return {
@@ -97,9 +115,9 @@ export default {
     };
   },
   methods: {
-     baseUrl() {
-        return baseUrl()
-      },
+    baseUrl() {
+      return baseUrl();
+    },
     handleClick(row) {
       // console.log(row);
     },

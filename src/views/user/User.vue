@@ -39,6 +39,7 @@
 
     <el-card style="width: auto; margin-top: 30px">
       <common-table
+        :loading="loading"
         :userData="userData"
         :tableLabel="tableLabel"
         @edit="editUser"
@@ -64,6 +65,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       operateType: "add",
       isShow: false,
       userData: [],
@@ -273,10 +275,13 @@ export default {
     },
   },
   mounted() {
-    getUserData().then((res) => {
+    setTimeout(() => {
+      getUserData().then((res) => {
       this.userData = res.data.tb_userlist;
+      this.loading = false
       // console.log(res);
     });
+    }, 300);
   },
 };
 </script>
