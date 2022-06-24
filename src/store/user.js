@@ -31,5 +31,17 @@ export default {
             state.userName = usernamed
             Cookie.set('usernamed', usernamed)
         },
+        clearSetPermissions(state) {
+            state.permissions = ''
+            Cookie.remove('permissions')
+        },
+        clearSetUserimage(state) {
+            state.userimage = ''
+            Cookie.remove('userimage')
+        },
+        clearSetUsernamed(state) {
+            state.userName = ''
+            Cookie.remove('usernamed')
+        },
     }
 }

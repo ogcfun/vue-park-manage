@@ -47,9 +47,12 @@ export default {
         },
         logOut() {
             this.$store.commit('clearToken')
+            this.$store.commit('clearSetPermissions')
+            this.$store.commit('clearSetUserimage')
+            this.$store.commit('clearSetUsernamed')
             this.$store.commit('clearMenu')
-            // this.$router.push("/login")
-            window.location.href="/login"
+            this.$router.push("/login")
+            location.reload();
         }
     },
     computed: {

@@ -72,12 +72,15 @@ if(isset($_POST['userform'])){
 
     include_once('./menu.php');
 
+    if(!empty($state)){
+
     if($state == '禁用'){
         $arr = ["code" => -6,"msg" => "该账号已被禁用"];
         echo(json_encode($arr));
 		die();
     }
-
+}
+if(!empty($user_permissions)){
     if($user_permissions == "游客"){
         $arr = ["code" => -6,"msg" => "你还不是管理员"];
         echo(json_encode($arr));
@@ -91,6 +94,7 @@ if(isset($_POST['userform'])){
     }else{
         $nav = $menus;
     }
+}
 
 	if(!empty($res)) {
             $arr = [ 

@@ -1,4 +1,11 @@
 <template>
+<body
+   v-loading="loading"
+      element-loading-text="登陆中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+>
+  
   <el-form
     :model="form"
     status-icon
@@ -35,6 +42,7 @@
       >
     </el-form-item>
   </el-form>
+</body>
 </template>
 
 <script>
@@ -43,6 +51,7 @@ export default {
   name: "Login",
   data() {
     return {
+       loading: false,
       form: {
         username: "",
         password: "",
@@ -64,10 +73,13 @@ export default {
     login() {
       this.$refs.form.validate(async (valid) => {
         if (!valid) return;
+         this.loading = true
         const userform = this.form;
         let tokenuserform = this.$qs.stringify({ userform });
-        getUserForm(tokenuserform).then((res) => {
+        setTimeout(() => {
+          getUserForm(tokenuserform).then((res) => {
           if (res.code == 666) {
+            this.loading = false
             this.$message({
               message: res.msg,
               type: "success",
@@ -81,12 +93,14 @@ export default {
             this.$store.commit("addMenu", this.$router);
             this.$router.push({ name: "home" });
           } else if (res.code == -6) {
+            this.loading = false
             this.$message({
               message: res.msg,
               type: "danger",
             });
           }
         });
+        }, 1000);
       });
     },
   },

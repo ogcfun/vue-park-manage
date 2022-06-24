@@ -357,7 +357,7 @@ export default {
       this.pageNum = res.totalCount;
       this.loading = false
     });
-    }, 300);
+    }, 1000);
   },
 };
 </script>

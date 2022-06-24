@@ -281,7 +281,7 @@ export default {
       this.loading = false
       // console.log(res);
     });
-    }, 300);
+    }, 1000);
   },
 };
 </script>
