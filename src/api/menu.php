@@ -88,6 +88,13 @@
         "url"=> "ticket/SellTickets"
         ],
         [
+            "path"=> "/ticketClass",
+            "name"=> "ticketClass",
+            "label"=> "票务管理",
+            "icon"=> "s-ticket",
+            "url"=> "ticketClass/TicketClass"   
+        ],
+        [
         "path"=> "/stats",
         "name"=> "stats",
         "label"=> "统计",

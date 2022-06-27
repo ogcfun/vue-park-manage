@@ -109,7 +109,7 @@ if(!empty($user_permissions)){
         echo(json_encode($arr));
 		die();
 	}else{
-		$arr = ["code" => -6,"msg" => "账号密码输入有误"];
+		$arr = ["code" => -6,"msg" => "账号密码输入有误，该用户不是管理员"];
         echo(json_encode($arr));
 		die();
 	}

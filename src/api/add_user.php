@@ -19,6 +19,13 @@ if(empty($user_password)){
     $user_password = 123456;
 }
 
+$sql = "select * from tb_userlist where user_account ='$user_account'";
+  $row = mysqli_query($link,$sql);
+  if( mysqli_num_rows( $row ) ){
+    $arr = ["code" => -2,"msg" => "该用户账号已存在"];
+    echo(json_encode($arr));
+  die();
+  }
 
 if(empty($user_name) || strlen($user_name) < 2 || strlen($user_name) > 18) {
     $arr = ["code" => -2,"msg" => "用户名称输入有误"];
@@ -72,7 +79,7 @@ $sql = "insert into
 
 $result = mysqli_query($link,$sql);
 $nums = mysqli_affected_rows($link);
-    if($nums) {
+    if($nums>0) {
         $arr = ["code" => 200,"msg" => "新增用户成功"];
         echo(json_encode($arr));
     }else{

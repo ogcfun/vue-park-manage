@@ -28,7 +28,7 @@
       </el-table-column>
       <el-table-column
         v-for="(item, index) in tableLabel"
-        :key="item.prop"
+        :key="index"
         :prop="item.prop"
         :label="item.label"
         :width="item.width ? item.width : 180"
@@ -52,7 +52,16 @@
 
       <el-table-column label="操作" fixed="right" width="180">
         <template slot-scope="scope">
-          <el-button
+          <div v-if="permissions == '管理员'">
+            <el-button
+            closable
+            type="success"
+            icon="el-icon-view"
+            @click="handleView(scope.$index, scope.row)"
+          >查看</el-button>
+          </div>
+          <div v-else>
+            <el-button
             size="mini"
             type="primary"
             icon="el-icon-edit"
@@ -69,6 +78,7 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.$index, scope.row)"
           ></el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -89,6 +99,7 @@
 <script>
 import { getUserData } from "network/user";
 import { baseUrl } from "network/request";
+import Cookie from 'js-cookie';
 export default {
   name: "ContentForm",
   props: {
@@ -114,6 +125,11 @@ export default {
       pageNum: 0,
     };
   },
+  computed:{
+    permissions() {
+      return this.$store.state.user.permissions || Cookie.get('permissions')
+    }
+  },
   methods: {
     baseUrl() {
       return baseUrl();
@@ -130,6 +146,9 @@ export default {
     handleCurrentChange(page) {
       this.$emit("page", page);
     },
+    handleView(index,row){
+      this.$emit("view", index, row);
+    }
   },
   mounted() {
     getUserData().then((res) => {

@@ -52,6 +52,11 @@ import {
     Calendar,
     Loading,
     Progress,
+    Steps,
+    Step,
+    Cascader,
+    Tabs,
+    TabPane
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
@@ -61,11 +66,11 @@ Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
     .use(Tag).use(Form).use(FormItem).use(Input).use(Select).use(Option)
     .use(Switch).use(DatePicker).use(Dialog).use(Pagination).use(Autocomplete)
     .use(ButtonGroup).use(Upload).use(Image).use(Checkbox).use(Calendar).use(Loading)
-    .use(Progress);
+    .use(Progress).use(Steps).use(Step).use(Cascader).use(Tabs).use(TabPane);
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 
-import VueAnimateNumber from 'vue-animate-number'
+import VueAnimateNumber from 'vue-animate-number' //数字动态加载插件
 Vue.use(VueAnimateNumber)
 
 
@@ -74,12 +79,13 @@ Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
     store.commit('getToken')
     const token = store.state.user.token
-        // console.log(token);
-    if (!token && to.name !== 'login') {
+    if(!token && to.name === 'signUp'){
+        next()
+    }else if (!token && to.name !== 'login') {
         next({ name: 'login' })
-    } else if (token && to.name === 'login') {
+    }else if (token && to.name === 'login') {
         next({ name: 'home' })
-    } else {
+    }else {
         next()
     }
 })

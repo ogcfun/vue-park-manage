@@ -2,7 +2,7 @@ import Cookie from 'js-cookie';
 
 export default {
     state: {
-        isCollapse: false,
+        isCollapse: true,
         tabsList: [{
             path: '/',
             name: 'home',

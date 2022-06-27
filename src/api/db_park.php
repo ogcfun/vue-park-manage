@@ -5,9 +5,9 @@
 
     //链接数据库
   $addr = 'localhost'; //地址
-  $admin = 'admin'; //数据库用户名
-  $passW = '123456'; //数据库密码
-  $dbase = 'db_park'; //数据库名
+  $admin = 'park_manage'; //数据库用户名
+  $passW = 'deng2001'; //数据库密码
+  $dbase = 'park_manage'; //数据库名
   
   $link = mysqli_connect($addr,$admin,$passW,$dbase);
   if(!$link) {

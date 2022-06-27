@@ -1,48 +1,50 @@
 <template>
-<body
-   v-loading="loading"
-      element-loading-text="登陆中"
-      element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
->
-  
-  <el-form
-    :model="form"
-    status-icon
-    :rules="rules"
-    ref="form"
-    label-width="100px"
-    class="login-container"
+  <body
+    v-loading="loading"
+    element-loading-text="登陆中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
   >
-    <h3 class="login_title">某公园售票系统登录</h3>
-    <el-form-item
-      label="用户名"
-      label-width="80px"
-      prop="username"
-      class="username"
+    <el-form
+      :model="form"
+      status-icon
+      :rules="rules"
+      ref="form"
+      label-width="100px"
+      class="login-container"
     >
-      <el-input
-        type="input"
-        v-model="form.username"
-        autocomplete="off"
-        placeholder="请输入账号"
-      ></el-input>
-    </el-form-item>
-    <el-form-item label="密码" label-width="80px" prop="password">
-      <el-input
-        type="password"
-        v-model="form.password"
-        autocomplete="off"
-        placeholder="请输入密码"
-      ></el-input>
-    </el-form-item>
-    <el-form-item class="login_submit">
-      <el-button type="primary" @click="login(form)" class="login_snbmit"
-        >登录</el-button
+      <h3 class="login_title">某公园售票系统登录</h3>
+      <el-form-item
+        label="用户名"
+        label-width="80px"
+        prop="username"
+        class="username"
       >
-    </el-form-item>
-  </el-form>
-</body>
+        <el-input
+          type="input"
+          v-model="form.username"
+          autocomplete="off"
+          placeholder="请输入账号"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="密码" label-width="80px" prop="password">
+        <el-input
+          type="password"
+          v-model="form.password"
+          autocomplete="off"
+          placeholder="请输入密码"
+        ></el-input>
+      </el-form-item>
+      <el-form-item class="login_submit">
+        <el-button type="primary" @click="login(form)" class="login_snbmit"
+          >登录</el-button
+        >
+      </el-form-item>
+      <div class="signUp">
+        <span>还没有账号？<a @click="signUp">申请成为管理员</a></span>
+      </div>
+    </el-form>
+  </body>
 </template>
 
 <script>
@@ -51,10 +53,11 @@ export default {
   name: "Login",
   data() {
     return {
-       loading: false,
+      loading: false,
       form: {
-        username: "",
-        password: "",
+        //登录
+        username: "admins",
+        password: "123456",
       },
       rules: {
         username: [
@@ -73,36 +76,40 @@ export default {
     login() {
       this.$refs.form.validate(async (valid) => {
         if (!valid) return;
-         this.loading = true
+        this.loading = true;
         const userform = this.form;
         let tokenuserform = this.$qs.stringify({ userform });
         setTimeout(() => {
           getUserForm(tokenuserform).then((res) => {
-          if (res.code == 666) {
-            this.loading = false
-            this.$message({
-              message: res.msg,
-              type: "success",
-            });
-            this.$store.commit("setPermissions",res.permissions);
-            this.$store.commit("setUserimage",res.userimage);
-            this.$store.commit("setUsernamed",res.usernamed);
-            this.$store.commit("clearMenu");
-            this.$store.commit("setMenu", res.menu);
-            this.$store.commit("setToken", res.token);
-            this.$store.commit("addMenu", this.$router);
-            this.$router.push({ name: "home" });
-          } else if (res.code == -6) {
-            this.loading = false
-            this.$message({
-              message: res.msg,
-              type: "danger",
-            });
-          }
-        });
+            if (res.code == 666) {
+              this.loading = false;
+              this.$message({
+                message: res.msg,
+                type: "success",
+              });
+              this.$store.commit("setPermissions", res.permissions);
+              this.$store.commit("setUserimage", res.userimage);
+              this.$store.commit("setUsernamed", res.usernamed);
+              this.$store.commit("clearMenu");
+              this.$store.commit("setMenu", res.menu);
+              this.$store.commit("setToken", res.token);
+              this.$store.commit("addMenu", this.$router);
+              this.$router.push({ name: "home" });
+            } else if (res.code == -6) {
+              this.loading = false;
+              this.$message({
+                message: res.msg,
+                type: "danger",
+              });
+            }
+          });
         }, 1000);
       });
     },
+
+    signUp() {
+      this.$router.push({name: 'signUp'})
+    }
   },
 };
 </script>
@@ -135,6 +142,22 @@ body {
 }
 
 .login_submit {
-  margin: 10px auto 0 auto;
+  margin: 10px auto 20px auto;
 }
+
+.signUp {
+  text-align: center;
+  span {
+    color: rgba(78, 78, 78, 0.5);
+    font-size: 10px;
+    font-weight: 100;
+    a {
+      color: rgb(26, 157, 245, 0.5);
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: normal;
+    }
+  }
+}
+
 </style>
