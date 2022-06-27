@@ -1,53 +1,75 @@
 <template>
-  <el-form
-    :model="sign_form"
-    status-icon
-    :rules="rules"
-    ref="form"
-    width="100px"
-    class="login-container"
-  >
-    <h3 class="login_title">某公园售票系统管理员注册</h3>
-    <el-form-item
-      v-for="(item, index) in userData"
-      :key="index"
-      :label="item.label"
-      :prop="item.porp"
+<body>
+    <vue-particles
+      class="login-bj"
+      color="#11E6FC"
+      :particleOpacity="0.8"
+      :particlesNumber="60"
+      shapeType="circle"
+      :particleSize="6"
+      linesColor="#72EAF6"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
     >
-      <el-input
+    </vue-particles>
+    <el-form
+      :model="sign_form"
+      status-icon
+      :rules="rules"
+      ref="form"
+      width="100px"
+      class="login-container"
+    >
+      <h3 class="login_title">某公园售票系统管理员注册</h3>
+      <el-form-item
+        v-for="(item, index) in userData"
         :key="index"
-        :type="item.type"
-        v-model="sign_form[item.val]"
-        autocomplete="off"
-        :placeholder="item.place"
+        :label="item.label"
+        label-width="80px"
+        :prop="item.porp"
       >
-      </el-input>
-    </el-form-item>
+        <el-input
+          :key="index"
+          :type="item.type"
+          v-model="sign_form[item.val]"
+          autocomplete="off"
+          :placeholder="item.place"
+        >
+        </el-input>
+      </el-form-item>
 
-    <el-form-item label="用户地址" prop="password">
-      <el-cascader
-        style="width: 100%"
-        ref="casCader"
-        size="large"
-        :options="options"
-        v-model="selectedOptions"
-        @change="handleChange"
-      >
-      </el-cascader>
-    </el-form-item>
-    <el-form-item class="login_submit">
-      <el-button type="primary" @click="signUp" class="login_snbmit"
-        >申请成为管理员</el-button
-      >
-    </el-form-item>
-    <div class="signUp">
-      <span>已有账号？<a @click="signIn">去登录</a></span>
-    </div>
-  </el-form>
+      <el-form-item label="用户地址" label-width="80px" prop="password">
+        <el-cascader
+          style="width: 100%"
+          ref="casCader"
+          size="large"
+          :options="options"
+          v-model="selectedOptions"
+          @change="handleChange"
+        >
+        </el-cascader>
+      </el-form-item>
+      <el-form-item class="login_submit">
+        <el-button type="primary" @click="signUp" class="login_snbmit"
+          >申请成为管理员</el-button
+        >
+      </el-form-item>
+      <div class="signUp">
+        <span>已有账号？<a @click="signIn">去登录</a></span>
+      </div>
+    </el-form>
+</body>
 </template>
 <script>
 import { regionData } from "element-china-area-data"; //先在需要显示省市区的页面
-import {getAddSign} from 'network/sign';
+import { getAddSign } from "network/sign";
 
 export default {
   name: "SignUp",
@@ -62,8 +84,8 @@ export default {
         password: "",
         Qpassword: "",
         email: "",
-        permissions: '管理员',
-        state: '正常'
+        permissions: "管理员",
+        state: "正常",
       },
       rules: {
         username: [
@@ -125,13 +147,13 @@ export default {
       this.$router.push({ name: "login" });
     },
     signUp() {
-        if(this.sign_form.password !== this.sign_form.Qpassword){
-            this.$message({
-                message: '两次密码输入不一致',
-                type: "danger",
-              });
-              return
-        }
+      if (this.sign_form.password !== this.sign_form.Qpassword) {
+        this.$message({
+          message: "两次密码输入不一致",
+          type: "danger",
+        });
+        return;
+      }
       var addsign = {
         name: this.sign_form.name,
         username: this.sign_form.username,
@@ -143,20 +165,20 @@ export default {
         state: this.sign_form.state,
       };
       let addSign = this.$qs.stringify({ addsign });
-      getAddSign(addSign).then(res => {
-        if(res.code === 1500) {
+      getAddSign(addSign).then((res) => {
+        if (res.code === 1500) {
           this.$message({
-                message: res.msg,
-                type: "success",
-              });
-              this.$router.push({name: 'login'})
-        }else {
-           this.$message({
-              message: res.msg,
-              type: "danger",
-            });
+            message: res.msg,
+            type: "success",
+          });
+          this.$router.push({ name: "login" });
+        } else {
+          this.$message({
+            message: res.msg,
+            type: "danger",
+          });
         }
-      })
+      });
     },
   },
 };
@@ -167,6 +189,11 @@ body {
   padding: 0;
   margin: 0;
   position: relative;
+  background-image: url("../../assets/image/bj.webp");
+  background-size: 100%;
+   .login-bj {
+    height: 100vh;
+  }
 }
 .login-container {
   position: absolute;
@@ -177,15 +204,14 @@ body {
   background-clip: padding-box;
   width: 550px;
   padding: 35px 35px 15px 35px;
-  background-color: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 25px #000000;
 }
 
 .login_title {
-  margin: 0 auto 40px auto;
+ margin: 0 auto 40px auto;
   text-align: center;
-  color: #505458;
+  color: #ffffff;
 }
 
 .login_submit {
@@ -195,7 +221,7 @@ body {
 .signUp {
   text-align: center;
   span {
-    color: rgba(78, 78, 78, 0.5);
+   color: rgb(146, 146, 146);
     font-size: 10px;
     font-weight: 100;
     a {

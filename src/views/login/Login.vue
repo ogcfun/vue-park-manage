@@ -5,6 +5,25 @@
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
+    <vue-particles
+      class="login-bj"
+      color="#11E6FC"
+      :particleOpacity="0.8"
+      :particlesNumber="60"
+      shapeType="circle"
+      :particleSize="6"
+      linesColor="#72EAF6"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    >
+    </vue-particles>
     <el-form
       :model="form"
       status-icon
@@ -108,8 +127,8 @@ export default {
     },
 
     signUp() {
-      this.$router.push({name: 'signUp'})
-    }
+      this.$router.push({ name: "signUp" });
+    },
   },
 };
 </script>
@@ -120,6 +139,12 @@ body {
   padding: 0;
   margin: 0;
   position: relative;
+  background-color: rgb(0, 0, 0);
+  .login-bj {
+    height: 100vh;
+    background-image: url("../../assets/image/bj.webp");
+    background-size: 100%;
+  }
 }
 .login-container {
   position: absolute;
@@ -130,15 +155,14 @@ body {
   background-clip: padding-box;
   width: 350px;
   padding: 35px 35px 15px 35px;
-  background-color: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 25px #000000;
 }
 
 .login_title {
   margin: 0 auto 40px auto;
   text-align: center;
-  color: #505458;
+  color: #dddddd;
 }
 
 .login_submit {
@@ -148,7 +172,7 @@ body {
 .signUp {
   text-align: center;
   span {
-    color: rgba(78, 78, 78, 0.5);
+    color: rgb(146, 146, 146);
     font-size: 10px;
     font-weight: 100;
     a {
@@ -159,5 +183,4 @@ body {
     }
   }
 }
-
 </style>

@@ -314,7 +314,7 @@ export default {
       });
     },
   },
-  mounted() {
+  created() {
     setTimeout(() => {
       getUserData().then((res) => {
         this.userData = res.data.tb_userlist;

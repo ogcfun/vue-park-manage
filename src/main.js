@@ -73,6 +73,10 @@ Vue.prototype.$message = Message
 import VueAnimateNumber from 'vue-animate-number' //数字动态加载插件
 Vue.use(VueAnimateNumber)
 
+import VueParticles from 'vue-particles'  
+Vue.use(VueParticles)
+
+
 
 Vue.config.productionTip = false
 

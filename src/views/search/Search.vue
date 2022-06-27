@@ -1,6 +1,14 @@
 <template>
   <el-card style="margin: 20px 0 0 0">
-    <el-table :data="tableData" border style="width: 100%">
+    <el-table
+      v-loading="loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      :data="tableData"
+      border
+      style="width: 100%"
+    >
       <el-table-column fixed prop="sign_time" label="申请日期" width="200">
       </el-table-column>
       <el-table-column prop="sign_image" label="头像(查看大图)" width="150">
@@ -78,6 +86,7 @@ export default {
   name: "Search",
   data() {
     return {
+      loading: true,
       page: 1,
       total: 0,
       pageNum: 0,
@@ -168,12 +177,15 @@ export default {
     },
   },
   created() {
-    getSignData().then((res) => {
-      // console.log(res);
-      this.tableData = res.data.tb_addsign;
-      this.total = res.totalCount;
-      this.pageNum = res.totalCount;
-    });
+    setTimeout(() => {
+      getSignData().then((res) => {
+        // console.log(res);
+        this.tableData = res.data.tb_addsign;
+        this.total = res.totalCount;
+        this.pageNum = res.totalCount;
+        this.loading = false
+      });
+    }, 1000);
   },
 };
 </script>
