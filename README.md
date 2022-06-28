@@ -1,17 +1,10 @@
 # park-manage
+# 公园管理系统
 
 ## Project setup
 ```
 yarn install
-```
-
-### Compiles and hot-reloads for development
-```
 yarn serve
-```
-
-### Compiles and minifies for production
-```
 yarn build
 ```
 
