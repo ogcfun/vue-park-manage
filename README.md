@@ -35,8 +35,19 @@
 - [x] 导出excel  
 
 ## 项目截图
-#### 注册/登录界面
-![注册/登录界面](http://www.commit.tk/img/login.png)
+![登录界面](http://www.commit.tk/img/login.png)
+![注册界面](http://www.commit.tk/img/signUp.png)
+![首页](http://www.commit.tk/img/index.png)
+![售票界面](http://www.commit.tk/img/ket.png)
+![票务界面](http://www.commit.tk/img/tic.png)
+![管理员审核界面](http://www.commit.tk/img/shenhe.png)
+![个人界面](http://www.commit.tk/img/set.png)
+![统计界面](http://www.commit.tk/img/eh.png)
+
+#### 不同权限，展示不一致
+![管理员用户界面](http://www.commit.tk/img/quanx.png)
+![超级管理员用户界面](http://www.commit.tk/img/user.png)
+
 
 ## 项目运行
 ```
