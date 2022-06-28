@@ -35,14 +35,29 @@
 - [x] 导出excel  
 
 ## 项目截图
-![登录界面](http://www.commit.tk/img/login.png)
+* 登录  
+![登录界面](http://www.commit.tk/img/login.png)  
+
+* 注册
 ![注册界面](http://www.commit.tk/img/signUp.png)
-![首页](http://www.commit.tk/img/index.png)
-![售票界面](http://www.commit.tk/img/ket.png)
-![票务界面](http://www.commit.tk/img/tic.png)
-![管理员审核界面](http://www.commit.tk/img/shenhe.png)
-![个人界面](http://www.commit.tk/img/set.png)
-![统计界面](http://www.commit.tk/img/eh.png)
+
+* 首页
+![首页](http://www.commit.tk/img/index.png)  
+
+* 售票
+![售票界面](http://www.commit.tk/img/ket.png)  
+
+* 票务
+![票务界面](http://www.commit.tk/img/tic.png)  
+
+* 管理员审核
+![管理员审核界面](http://www.commit.tk/img/shenhe.png)  
+
+* 个人
+![个人界面](http://www.commit.tk/img/set.png)  
+
+*  统计
+![统计界面](http://www.commit.tk/img/eh.png)  
 
 #### 不同权限，展示不一致
 ![管理员用户界面](http://www.commit.tk/img/quanx.png)
