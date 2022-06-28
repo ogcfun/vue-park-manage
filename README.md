@@ -15,6 +15,7 @@
 * echarts
 * qs
 * php
+* mysql
 
 
 ## 项目预览地址
