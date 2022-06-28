@@ -35,8 +35,8 @@
 - [x] 导出excel  
 
 ## 项目截图
-### 首页
-![图片名称](https://www.baidu.com/img/bd_logo1.png)  
+#### 注册/登录界面
+![注册/登录界面](http://www.commit.tk/img/login.png)
 
 ## 项目运行
 ```
