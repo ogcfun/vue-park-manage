@@ -18,7 +18,7 @@
 
 ## 项目预览地址
 
- (http://www.commit.tk/)
+ www.commit.tk  
 (国外服务器数据请求可能有点慢)
 
 
