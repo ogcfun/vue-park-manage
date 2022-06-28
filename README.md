@@ -3,21 +3,22 @@
 
 ## 技术依赖
 ```
-vue
-vuex
-vue-router 
-axios
-less
-element-ui
-js-cookie
-mockjs
-echarts
-qs
+* vue
+* vuex
+* vue-router 
+* axios
+* less
+* element-ui
+* js-cookie
+* mockjs
+* echarts
+* qs
+* php
 ```
 
 ## 项目预览地址
 ```
-www.commit.tk
+ (http://www.commit.tk)
 (国外服务器数据请求可能有点慢)
 ```
 
