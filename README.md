@@ -59,7 +59,7 @@
 *  统计
 ![统计界面](http://www.commit.tk/img/eh.png)  
 
-#### 不同权限，展示不一致
+##### 不同权限，展示不一致
 ![管理员用户界面](http://www.commit.tk/img/quanx.png)
 ![超级管理员用户界面](http://www.commit.tk/img/user.png)
 
