@@ -1,8 +1,11 @@
 # park-manage
-# 公园管理系统
+# 公园管理系统(如果对你有帮助，请点右上角star)
 
 ## 技术栈
 ```
+vue
+
+
 
 ## Project setup
 ```
