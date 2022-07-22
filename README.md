@@ -20,7 +20,7 @@
 
 ## 项目预览地址
 
- www.commit.tk  
+ www.commit.tk/shop
 (国外服务器数据请求可能有点慢)
 
 
