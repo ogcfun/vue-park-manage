@@ -75,7 +75,7 @@ export default {
       loading: false,
       form: {
         //登录
-        username: "admins",
+        username: "admind",
         password: "123456",
       },
       rules: {
@@ -100,7 +100,8 @@ export default {
         let tokenuserform = this.$qs.stringify({ userform });
         setTimeout(() => {
           getUserForm(tokenuserform).then((res) => {
-            if (res.code == 666) {
+            // console.log(res);
+            if (res.code === 666) {
               this.loading = false;
               this.$message({
                 message: res.msg,

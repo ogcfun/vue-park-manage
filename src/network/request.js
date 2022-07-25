@@ -2,13 +2,15 @@
 import axios from 'axios'
 
 export function baseUrl() {
-        return 'http://localhost/park-manage/src/api/'
+    return 'http://www.commit.tk/park/api/'
+        // return 'http://localhost/park-manage/src/api/'
 }
 
 export function request(config) {
     // 1.创建axios的实例
     const instance = axios.create({
-        baseURL: 'http://localhost/park-manage/src/api',
+        // baseURL: 'http://localhost/park-manage/src/api',
+        baseURL: 'http://www.commit.tk/park/api',
         timeout: 5000
     })
 

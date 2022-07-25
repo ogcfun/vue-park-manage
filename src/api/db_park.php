@@ -15,7 +15,7 @@
 	  die();
   }
   
-  $sql = "set names utf8"; //设置utf8编码的sql命令
+  $sql = "set names utf8mb4"; //设置utf8编码的sql命令
   mysqli_query($link,$sql);
   
 

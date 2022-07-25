@@ -1,46 +1,45 @@
 <template>
-    <el-container style="height: 100vh">
-        <el-aside width="auto">
-            <main-aside/>
-        </el-aside>
-        <el-container>
+  <el-container style="height: 100vh">
+    <el-aside width="auto">
+      <main-aside />
+    </el-aside>
+    <el-container>
+      <el-header>
+        <main-header />
+      </el-header>
 
-        <el-header>
-            <main-header/>
-        </el-header>
+      <main-tag />
 
-        <main-tag/>
-
-        <el-main>
-            <router-view/>
-        </el-main>
-
-        </el-container>
+      <el-main>
+        <keep-alive exclude="Setting">
+          <router-view />
+        </keep-alive>
+      </el-main>
     </el-container>
+  </el-container>
 </template>
 
 <script>
-import MainAside from 'components/common/mainComps/MainAside.vue'
-import MainHeader from 'components/common/mainComps/MainHeader.vue'
-import MainTag from 'components/common/mainComps/MainTag.vue'
+import MainAside from "components/common/mainComps/MainAside.vue";
+import MainHeader from "components/common/mainComps/MainHeader.vue";
+import MainTag from "components/common/mainComps/MainTag.vue";
 
 export default {
-    name: 'Main',
-    components: {
-        MainAside,
-        MainHeader,
-        MainTag
-
-    }
-}
+  name: "Main",
+  components: {
+    MainAside,
+    MainHeader,
+    MainTag,
+  },
+};
 </script>
 
 <style scoped>
 .el-header {
-    background-color:  rgb(35, 201, 223);
-  }
+  background-color: rgb(35, 201, 223);
+}
 
-  .el-main {
-    padding-top: 0;
-  }
+.el-main {
+  padding-top: 0;
+}
 </style>

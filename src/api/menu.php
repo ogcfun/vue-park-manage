@@ -44,13 +44,13 @@
             "url"=> "stats/Stats"
             ],
             [
-            "label"=> "设置",
+            "label"=> "更多",
             "icon"=> "s-operation",
             "children" => [
                 [
                     "path"=> "/setting",
                     "name"=> "setting",
-                    "label"=> "个人设置",
+                    "label"=> "留言板",
                     "icon"=> "setting",
                     "url"=> "set/Setting"
                 ],
@@ -102,13 +102,13 @@
         "url"=> "stats/Stats"
         ],
         [
-        "label"=> "设置",
+        "label"=> "更多",
         "icon"=> "s-operation",
         "children" => [
             [
                 "path"=> "/setting",
                 "name"=> "setting",
-                "label"=> "个人设置",
+                "label"=> "留言板",
                 "icon"=> "setting",
                 "url"=> "set/Setting"
             ],

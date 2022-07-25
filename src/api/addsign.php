@@ -15,7 +15,7 @@ if(isset($_POST['addsign'])){
     $add_time = date('Y-m-d H:i:s',time());
 
     
-$sql = "select * from tb_addsign where sign_account ='$username'";
+$sql = "select * from tb_userlist where user_account ='$username'";
 $row = mysqli_query($link,$sql);
 if( mysqli_num_rows( $row ) ){
   $arr = ["code" => -15,"msg" => "该用户账号已存在"];

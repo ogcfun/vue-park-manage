@@ -56,7 +56,8 @@ import {
     Step,
     Cascader,
     Tabs,
-    TabPane
+    TabPane,
+    Tooltip
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
@@ -66,7 +67,7 @@ Vue.use(Button).use(Radio).use(Container).use(Main).use(Header).use(Aside)
     .use(Tag).use(Form).use(FormItem).use(Input).use(Select).use(Option)
     .use(Switch).use(DatePicker).use(Dialog).use(Pagination).use(Autocomplete)
     .use(ButtonGroup).use(Upload).use(Image).use(Checkbox).use(Calendar).use(Loading)
-    .use(Progress).use(Steps).use(Step).use(Cascader).use(Tabs).use(TabPane);
+    .use(Progress).use(Steps).use(Step).use(Cascader).use(Tabs).use(TabPane).use(Tooltip);
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 
@@ -76,7 +77,12 @@ Vue.use(VueAnimateNumber)
 import VueParticles from 'vue-particles'  
 Vue.use(VueParticles)
 
+import VueDraggableResizable from 'vue-draggable-resizable'
 
+// optionally import default styles
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+
+Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 Vue.config.productionTip = false
 

@@ -189,7 +189,7 @@ export default {
         // 新增
         let adduserparams = this.$qs.stringify({ addparams });
         getAddUser(adduserparams).then((res) => {
-          console.log(res);
+          // console.log(res);
           if (this.operateType == "新增用户" && res.code === 200) {
             this.isShow = false;
             this.$message({
