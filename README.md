@@ -36,7 +36,7 @@
 - [x] 导出excel  
 
 ## 项目截图
-* 登录  
+* 登录
 ![登录界面](http://www.commit.tk/img/login.png)  
 
 * 注册
