@@ -57,7 +57,7 @@
                 [
                     "path"=> "/userSet",
                     "name"=> "userSet",
-                    "label"=> "用户设置",
+                    "label"=> "上传文件",
                     "icon"=> "setting",
                     "url"=> "set/UserSet"
                 ],
