@@ -1,5 +1,5 @@
 # park-manage
-## 公园管理系统 vue + php + mysql  
+## 公园管理系统 vue2 + php + mysql  
 (如果对你有帮助，请点右上角star)
 
 ## 技术依赖
