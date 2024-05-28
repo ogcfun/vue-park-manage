@@ -20,8 +20,7 @@
 
 ## 项目预览地址
 
- www.commit.tk/park
-(国外服务器数据请求可能有点慢)
+ ~~www.commit.tk/park~~
 
 
 ## 项目功能
